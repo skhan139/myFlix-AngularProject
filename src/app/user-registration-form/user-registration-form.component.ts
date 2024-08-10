@@ -1,58 +1,48 @@
 // src/app/user-registration-form/user-registration-form.component.ts
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, OnInit, Input } from '@angular/core';
+
+//  use this import to close the dialog on success
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
+// This import brings in the API calls 
 import { FetchApiDataService } from '../fetch-api-data.service';
 
+// This import is used to display notifications back to the user
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
-  selector: 'app-user-registration-form',
-  standalone: true,
-
-  templateUrl: './user-registration-form.component.html',
-  styleUrls: ['./user-registration-form.component.scss'],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-  ],
+  selector: 'app-user-registration-form', 
+  templateUrl: './user-registration-form.component.html', 
+  styleUrls: ['./user-registration-form.component.scss']  
 })
-export class UserRegistrationFormComponent {
-  userData = { Username: '', Password: '', Email: '', Birthday: '' };
+export class UserRegistrationFormComponent implements OnInit {
 
-  constructor(
-    public fetchApiData: FetchApiDataService,
-    public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-    public snackBar: MatSnackBar
-  ) {}
+  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
 
-  ngOnInit(): void {}
+constructor(
+    public fetchApiData: FetchApiDataService,           //The service for fetching API data.
+    public dialogRef: MatDialogRef<UserRegistrationFormComponent>,       //The reference to the dialog.
+    public snackBar: MatSnackBar) { }    //The service for showing snack bar notifications.
 
-  // This is the function responsible for sending the form inputs to the backend
-  registerUser(): void {
-    this.fetchApiData.userRegistration(this.userData).subscribe(
-      (result: any) => {
-        // Assuming 'result' has a 'message' property
-        const message = result.message || 'Registration successful!';
-        this.dialogRef.close(); // This will close the modal on success!
-        this.snackBar.open(message, 'OK', {
-          duration: 2000,
-        });
-      },
-      (error: any) => {
-        const errorMessage = error.error.message || 'Registration failed!';
-        this.snackBar.open(errorMessage, 'OK', {
-          duration: 2000,
-        });
-      }
-    );
-  }
+// Angular's OnInit lifecycle hook.
+ngOnInit(): void {
 }
+
+// This is the function responsible for sending the form inputs to the backend
+registerUser(): void {
+    this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
+  // Logic for a successful user registration goes here! (To be implemented)
+     this.dialogRef.close(); // This will close the modal on success!
+     console.log(result);
+     this.snackBar.open("user registered successfully!", 'OK', {
+        duration: 2000
+     });
+    }, (result) => {
+      console.log(result);
+      this.snackBar.open(result, 'OK', {
+        duration: 2000
+      });
+    });
+  }
+
+  }

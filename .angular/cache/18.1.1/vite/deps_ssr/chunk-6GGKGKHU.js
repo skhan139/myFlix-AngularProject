@@ -1,7 +1,8 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-2QPXUSSU.js";
+} from "./chunk-QTSKFHO6.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -60,25 +61,18 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-OGT4NQHD.js";
+} from "./chunk-BBC3FSJS.js";
 import {
-  BehaviorSubject,
-  Observable,
-  Subject,
+  require_operators
+} from "./chunk-IJKRIHJI.js";
+import {
+  require_cjs
+} from "./chunk-IXWXOSOL.js";
+import {
   __spreadProps,
   __spreadValues,
-  combineLatest,
-  concat,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  of,
-  skip,
-  startWith,
-  take,
-  takeUntil
-} from "./chunk-E4U7SOWH.js";
+  __toESM
+} from "./chunk-NQ4HTGF6.js";
 
 // node_modules/@angular/cdk/fesm2022/platform.mjs
 var hasV8BreakIterator;
@@ -337,6 +331,8 @@ function coerceElement(elementOrRef) {
 }
 
 // node_modules/@angular/cdk/fesm2022/observers.mjs
+var import_rxjs = __toESM(require_cjs(), 1);
+var import_operators = __toESM(require_operators(), 1);
 function shouldIgnoreRecord(record) {
   if (record.type === "characterData" && record.target instanceof Comment) {
     return true;
@@ -389,9 +385,9 @@ var _ContentObserver = class _ContentObserver {
   }
   observe(elementOrRef) {
     const element = coerceElement(elementOrRef);
-    return new Observable((observer) => {
+    return new import_rxjs.Observable((observer) => {
       const stream = this._observeElement(element);
-      const subscription = stream.pipe(map((records) => records.filter((record) => !shouldIgnoreRecord(record))), filter((records) => !!records.length)).subscribe((records) => {
+      const subscription = stream.pipe((0, import_operators.map)((records) => records.filter((record) => !shouldIgnoreRecord(record))), (0, import_operators.filter)((records) => !!records.length)).subscribe((records) => {
         this._ngZone.run(() => {
           observer.next(records);
         });
@@ -409,7 +405,7 @@ var _ContentObserver = class _ContentObserver {
   _observeElement(element) {
     return this._ngZone.runOutsideAngular(() => {
       if (!this._observedElements.has(element)) {
-        const stream = new Subject();
+        const stream = new import_rxjs.Subject();
         const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
         if (observer) {
           observer.observe(element, {
@@ -513,7 +509,7 @@ var _CdkObserveContent = class _CdkObserveContent {
   _subscribe() {
     this._unsubscribe();
     const stream = this._contentObserver.observe(this._elementRef);
-    this._currentSubscription = (this.debounce ? stream.pipe(debounceTime(this.debounce)) : stream).subscribe(this.event);
+    this._currentSubscription = (this.debounce ? stream.pipe((0, import_operators.debounceTime)(this.debounce)) : stream).subscribe(this.event);
   }
   _unsubscribe() {
     this._currentSubscription?.unsubscribe();
@@ -592,6 +588,8 @@ var ObserversModule = _ObserversModule;
 })();
 
 // node_modules/@angular/cdk/fesm2022/layout.mjs
+var import_rxjs2 = __toESM(require_cjs(), 1);
+var import_operators2 = __toESM(require_operators(), 1);
 var _LayoutModule = class _LayoutModule {
 };
 _LayoutModule.ɵfac = function LayoutModule_Factory(t) {
@@ -696,7 +694,7 @@ var _BreakpointObserver = class _BreakpointObserver {
     this._mediaMatcher = _mediaMatcher;
     this._zone = _zone;
     this._queries = /* @__PURE__ */ new Map();
-    this._destroySubject = new Subject();
+    this._destroySubject = new import_rxjs2.Subject();
   }
   /** Completes the active subject, signalling to all other observables to complete. */
   ngOnDestroy() {
@@ -721,9 +719,9 @@ var _BreakpointObserver = class _BreakpointObserver {
   observe(value) {
     const queries = splitQueries(coerceArray(value));
     const observables = queries.map((query) => this._registerQuery(query).observable);
-    let stateObservable = combineLatest(observables);
-    stateObservable = concat(stateObservable.pipe(take(1)), stateObservable.pipe(skip(1), debounceTime(0)));
-    return stateObservable.pipe(map((breakpointStates) => {
+    let stateObservable = (0, import_rxjs2.combineLatest)(observables);
+    stateObservable = (0, import_rxjs2.concat)(stateObservable.pipe((0, import_operators2.take)(1)), stateObservable.pipe((0, import_operators2.skip)(1), (0, import_operators2.debounceTime)(0)));
+    return stateObservable.pipe((0, import_operators2.map)((breakpointStates) => {
       const response = {
         matches: false,
         breakpoints: {}
@@ -744,18 +742,18 @@ var _BreakpointObserver = class _BreakpointObserver {
       return this._queries.get(query);
     }
     const mql = this._mediaMatcher.matchMedia(query);
-    const queryObservable = new Observable((observer) => {
+    const queryObservable = new import_rxjs2.Observable((observer) => {
       const handler = (e) => this._zone.run(() => observer.next(e));
       mql.addListener(handler);
       return () => {
         mql.removeListener(handler);
       };
-    }).pipe(startWith(mql), map(({
+    }).pipe((0, import_operators2.startWith)(mql), (0, import_operators2.map)(({
       matches
     }) => ({
       query,
       matches
-    })), takeUntil(this._destroySubject));
+    })), (0, import_operators2.takeUntil)(this._destroySubject));
     const output = {
       observable: queryObservable,
       mql
@@ -806,6 +804,8 @@ var Breakpoints = {
 };
 
 // node_modules/@angular/cdk/fesm2022/a11y.mjs
+var import_rxjs3 = __toESM(require_cjs(), 1);
+var import_operators3 = __toESM(require_operators(), 1);
 var ID_DELIMITER = " ";
 function addAriaReferencedId(el, attr, id) {
   const ids = getAriaReferenceIds(el, attr);
@@ -1763,7 +1763,7 @@ var _InputModalityDetector = class _InputModalityDetector {
   constructor(_platform, ngZone, document2, options) {
     this._platform = _platform;
     this._mostRecentTarget = null;
-    this._modality = new BehaviorSubject(null);
+    this._modality = new import_rxjs3.BehaviorSubject(null);
     this._lastTouchMs = 0;
     this._onKeydown = (event) => {
       if (this._options?.ignoreKeys?.some((keyCode) => keyCode === event.keyCode)) {
@@ -1789,8 +1789,8 @@ var _InputModalityDetector = class _InputModalityDetector {
       this._mostRecentTarget = _getEventTarget(event);
     };
     this._options = __spreadValues(__spreadValues({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
-    this.modalityDetected = this._modality.pipe(skip(1));
-    this.modalityChanged = this.modalityDetected.pipe(distinctUntilChanged());
+    this.modalityDetected = this._modality.pipe((0, import_operators3.skip)(1));
+    this.modalityChanged = this.modalityDetected.pipe((0, import_operators3.distinctUntilChanged)());
     if (_platform.isBrowser) {
       ngZone.runOutsideAngular(() => {
         document2.addEventListener("keydown", this._onKeydown, modalityEventListenerOptions);
@@ -2090,7 +2090,7 @@ var _FocusMonitor = class _FocusMonitor {
       this._windowFocused = true;
       this._windowFocusTimeoutId = window.setTimeout(() => this._windowFocused = false);
     };
-    this._stopInputModalityDetector = new Subject();
+    this._stopInputModalityDetector = new import_rxjs3.Subject();
     this._rootNodeFocusAndBlurListener = (event) => {
       const target = _getEventTarget(event);
       for (let element = target; element; element = element.parentElement) {
@@ -2107,7 +2107,7 @@ var _FocusMonitor = class _FocusMonitor {
   monitor(element, checkChildren = false) {
     const nativeElement = coerceElement(element);
     if (!this._platform.isBrowser || nativeElement.nodeType !== 1) {
-      return of();
+      return (0, import_rxjs3.of)();
     }
     const rootNode = _getShadowRoot(nativeElement) || this._getDocument();
     const cachedInfo = this._elementInfo.get(nativeElement);
@@ -2119,7 +2119,7 @@ var _FocusMonitor = class _FocusMonitor {
     }
     const info = {
       checkChildren,
-      subject: new Subject(),
+      subject: new import_rxjs3.Subject(),
       rootNode
     };
     this._elementInfo.set(nativeElement, info);
@@ -2266,7 +2266,7 @@ var _FocusMonitor = class _FocusMonitor {
         const window2 = this._getWindow();
         window2.addEventListener("focus", this._windowFocusListener);
       });
-      this._inputModalityDetector.modalityDetected.pipe(takeUntil(this._stopInputModalityDetector)).subscribe((modality) => {
+      this._inputModalityDetector.modalityDetected.pipe((0, import_operators3.takeUntil)(this._stopInputModalityDetector)).subscribe((modality) => {
         this._setOrigin(
           modality,
           true
@@ -2711,6 +2711,8 @@ var BidiModule = _BidiModule;
 var VERSION = new Version("18.1.1");
 
 // node_modules/@angular/material/fesm2022/core.mjs
+var import_rxjs4 = __toESM(require_cjs(), 1);
+var import_operators4 = __toESM(require_operators(), 1);
 var _c0 = ["*", [["mat-option"], ["ng-container"]]];
 var _c1 = ["*", "mat-option, ng-container"];
 var _c2 = ["text"];
@@ -2895,7 +2897,7 @@ function MAT_DATE_LOCALE_FACTORY() {
 }
 var DateAdapter = class {
   constructor() {
-    this._localeChanges = new Subject();
+    this._localeChanges = new import_rxjs4.Subject();
     this.localeChanges = this._localeChanges;
   }
   /**
@@ -4116,7 +4118,7 @@ var _MatOption = class _MatOption {
     this._mostRecentViewValue = "";
     this.id = `mat-option-${_uniqueIdCounter++}`;
     this.onSelectionChange = new EventEmitter();
-    this._stateChanges = new Subject();
+    this._stateChanges = new import_rxjs4.Subject();
   }
   /**
    * Whether or not the option is currently active and ready to be selected.
@@ -4669,4 +4671,4 @@ export {
   MatRippleModule,
   MatRippleLoader
 };
-//# sourceMappingURL=chunk-3QNRC6YY.js.map
+//# sourceMappingURL=chunk-6GGKGKHU.js.map

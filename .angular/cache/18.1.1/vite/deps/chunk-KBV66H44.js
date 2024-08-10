@@ -1,7 +1,6 @@
-import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   getDOM
-} from "./chunk-IE7V3LGR.js";
+} from "./chunk-7WQ3FCWJ.js";
 import {
   ChangeDetectorRef,
   Directive,
@@ -42,22 +41,19 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
-} from "./chunk-QESUBVGS.js";
+} from "./chunk-OGT4NQHD.js";
 import {
-  require_cjs
-} from "./chunk-IXWXOSOL.js";
+  forkJoin
+} from "./chunk-56Y3C3CL.js";
 import {
-  require_operators
-} from "./chunk-IJKRIHJI.js";
-import {
+  Subject,
   __spreadProps,
   __spreadValues,
-  __toESM
-} from "./chunk-NQ4HTGF6.js";
+  from,
+  map
+} from "./chunk-E4U7SOWH.js";
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
-var import_rxjs = __toESM(require_cjs(), 1);
-var import_operators = __toESM(require_operators(), 1);
 var _BaseControlValueAccessor = class _BaseControlValueAccessor {
   constructor(_renderer, _elementRef) {
     this._renderer = _renderer;
@@ -663,7 +659,7 @@ function isPresent(o) {
   return o != null;
 }
 function toObservable(value) {
-  const obs = isPromise(value) ? (0, import_rxjs.from)(value) : value;
+  const obs = isPromise(value) ? from(value) : value;
   if ((typeof ngDevMode === "undefined" || ngDevMode) && !isSubscribable(obs)) {
     let errorMessage = `Expected async validator to return Promise or Observable.`;
     if (typeof value === "object") {
@@ -708,7 +704,7 @@ function composeAsync(validators) {
   if (presentValidators.length == 0) return null;
   return function(control) {
     const observables = executeValidators(control, presentValidators).map(toObservable);
-    return (0, import_rxjs.forkJoin)(observables).pipe((0, import_operators.map)(mergeErrors));
+    return forkJoin(observables).pipe(map(mergeErrors));
   };
 }
 function composeAsyncValidators(validators) {
@@ -1395,7 +1391,7 @@ var AbstractControl = class {
     this.pristineReactive = signal(true);
     this._touched = computed(() => this.touchedReactive());
     this.touchedReactive = signal(false);
-    this._events = new import_rxjs.Subject();
+    this._events = new Subject();
     this.events = this._events.asObservable();
     this._onDisabledChange = [];
     this._assignValidators(validators);
@@ -6387,4 +6383,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-H6F7TTZ2.js.map
+//# sourceMappingURL=chunk-KBV66H44.js.map
